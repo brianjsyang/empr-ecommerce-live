@@ -54,3 +54,11 @@ Using **Redux** prevents "prop drilling".
 - buildpack: create-reacr-app build, building static react website.
 - mars/create-react-app is used as buildpack.
   - the build requires the repo to be at root
+
+<br>
+
+### CSS in JavaScript files: styled-component
+
+- flaws in css: shares one global namespace.
+
+- trade off of styled-components
