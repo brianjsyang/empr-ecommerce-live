@@ -16,7 +16,7 @@ const CollectionPage = ({ collection, changeParams }) => {
     changeParams(params.collectionId);
   });
 
-  console.log(collection);
+  //console.log(collection);
 
   return (
     <div className="collection-page">
