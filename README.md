@@ -1,18 +1,28 @@
 # ECOMMERCE WEBSITE
 
-### Login
+### Firebase
 
 Using Firebase, allows users to login either using Google, <br>
 or create new account using email and password.
 
 Firebase securely stores user login data.
 
-<br>
+> QueryReference:
+>
+> - object that represents the "current place" in the database.
+> - used by
+>   1.  firebase.doc('user/:userId'); **OR**
+>   2.  firestore.collections('/users');
+> - queryReference object does not hold data, but method to obtain Snapshot object.
+>
+> - Document Reference (.doc): performs "create", "retreive", "update", and "delete".
+> - Collection Reference (.collections): performs "add" that adds documents to collections.
+> - .doc will return **documentSnapshop**, whereas .collections will return **querySnapshot**
+
+- detailed process is explained in _App.js_ file
+  <br>
 
 ### Redux
-
-Current user (App.js state) is being used by many componenets. <br>
-Using **Redux** prevents "prop drilling".
 
 - Warp **Provider** to give all components access to the **store state**
 - **Root Reducer** will combine all other slices of states ... better readability

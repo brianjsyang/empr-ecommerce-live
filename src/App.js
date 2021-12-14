@@ -9,25 +9,35 @@ import Header from './components/header/header.component';
 import Authentication from './pages/authentication/authentication.component';
 import CheckoutPage from './pages/checkout/checkout.component';
 
-import { auth, createUserProfileDocument } from './firebase/firebase.utils';
+import {
+  auth,
+  createUserProfileDocument,
+  // addCollectionAndDocs,
+} from './firebase/firebase.utils';
 import { setCurrentUser } from './redux/user/user.action';
 import { selectCurrentUser } from './redux/user/user.selectors';
+// import { selectCollectionsForPreview } from './redux/shop/shop.selector';
 
 import './App.css';
+
+// Commented code is for adding new documents to firebase collection
 
 class App extends React.Component {
   unsubscribeFromAuth = null;
 
-  // Whenver someone signs in, firebase is aware ... open subscription
+  /**
+   * Storing Authenticated user
+   * 1. auth library (firebase). Pass userAuth object whenever authentication state changes
+   * 2. userAuth is stored in the authentication table at firebase db, assigs UID.
+   * 3. pass userAuth object to createUserProfileDocument function
+   * 4. In the function, query database for document reference object: firestore.doc()
+   * 5. Get Snapshot object using the document reference.
+   * 6. If document does not exist, create new document using given object inside db. (create new user)
+   */
   componentDidMount() {
     const { setCurrentUser } = this.props;
     this.unsubscribeFromAuth = auth.onAuthStateChanged(async userAuth => {
       if (userAuth) {
-        //1. get back userRef
-        //2. if no document, create new object and document
-        //3. Subscribe to userRef, get back first state of the data
-        //4. Set the state of current state.
-        //5. If log out, reset state to null
         const userRef = await createUserProfileDocument(userAuth);
 
         userRef.onSnapshot(snapShot => {
@@ -41,6 +51,12 @@ class App extends React.Component {
       } else {
         setCurrentUser(userAuth);
       }
+
+      // Created collection ref to store object in the future
+      // addCollectionAndDocs(
+      //   'collections',
+      //   collectionsArray.map(({ title, items }) => ({ title, items }))
+      // );
     });
   }
 
@@ -72,6 +88,7 @@ class App extends React.Component {
 // Get access to this.props.currentUser
 const mapStateToProps = createStructuredSelector({
   currentUser: selectCurrentUser,
+  // collectionsArray: selectCollectionsForPreview,
 });
 
 /**
